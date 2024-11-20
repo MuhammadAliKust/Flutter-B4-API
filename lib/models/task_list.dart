@@ -13,7 +13,7 @@ String taskListingModelToJson(TaskListingModel data) =>
     json.encode(data.toJson());
 
 class TaskListingModel {
-  final List<TaskModel>? tasks;
+  final List<Task>? tasks;
   final int? totalPages;
   final int? currentPage;
   final int? count;
@@ -29,8 +29,8 @@ class TaskListingModel {
       TaskListingModel(
         tasks: json["tasks"] == null
             ? []
-            : List<TaskModel>.from(
-                json["tasks"]!.map((x) => TaskModel.fromJson(x))),
+            : List<Task>.from(
+                json["tasks"]!.map((x) => Task.fromJson(x))),
         totalPages: json["totalPages"],
         currentPage: json["currentPage"],
         count: json["count"],

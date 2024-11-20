@@ -57,17 +57,23 @@ class _LoginViewState extends State<LoginView> {
                               email: emailController.text,
                               password: pwdController.text)
                           .then((val) async {
-                        await AuthServices()
-                            .getUserProfile(val.token.toString())
-                            .then((val) {
+                        if (val.token != null) {
+                          await AuthServices()
+                              .getUserProfile(val.token.toString())
+                              .then((val) {
+                            isLoading = false;
+                            setState(() {});
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ProfileView(model: val)));
+                          });
+                        } else {
                           isLoading = false;
                           setState(() {});
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      ProfileView(model: val)));
-                        });
+                        }
+
                       });
                     } catch (e) {
                       isLoading = false;
